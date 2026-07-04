@@ -7,538 +7,85 @@
   <!-- Font Awesome 图标库 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
-    }
-
-    body {
-      background: radial-gradient(circle at 20% 30%, #0b0e1a, #03050b);
-      min-height: 100vh;
-      padding: 2rem 1.5rem;
-      color: #e0f0ff;
-    }
-
-    /* 科技感网格背景 */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .container {
-      max-width: 1440px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* 头部 —— 全息科技风 */
-    .header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 2.8rem;
-      padding: 1.2rem 2rem;
-      background: rgba(8, 20, 40, 0.55);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 255, 255, 0.25);
-      border-radius: 48px;
-      box-shadow: 0 0 30px rgba(0, 180, 255, 0.2);
-      gap: 16px;
-    }
-
-    .logo h1 {
-      font-size: 2.1rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, #a0f0ff, #5b9eff, #b47cff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
-    }
-
-    .logo i {
-      margin-right: 12px;
-      color: #7af0ff;
-      filter: drop-shadow(0 0 8px cyan);
-      font-size: 2rem;
-    }
-
-    .header-right {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .email-box {
-      background: rgba(0, 255, 255, 0.08);
-      padding: 0.6rem 1.8rem;
-      border-radius: 40px;
-      border: 1px solid #2ad4ff;
-      box-shadow: 0 0 15px rgba(0, 200, 255, 0.2);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      backdrop-filter: blur(4px);
-    }
-
-    .email-box i {
-      color: #6ee7ff;
-      font-size: 1.4rem;
-    }
-
-    .email-box span {
-      color: #c2ecff;
-      letter-spacing: 1px;
-      font-weight: 400;
-    }
-
-    /* ---- 搜索框 (科技感) ---- */
-    .search-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-      background: rgba(0, 255, 255, 0.06);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      border-radius: 60px;
-      padding: 0.1rem 0.1rem 0.1rem 1.4rem;
-      backdrop-filter: blur(6px);
-      transition: 0.3s;
-      min-width: 200px;
-    }
-    .search-wrapper:focus-within {
-      border-color: #4fc3ff;
-      box-shadow: 0 0 20px rgba(0, 180, 255, 0.25);
-      background: rgba(0, 40, 70, 0.4);
-    }
-    .search-wrapper i {
-      color: #6ad4ff;
-      font-size: 1rem;
-      opacity: 0.7;
-    }
-    .search-wrapper input {
-      background: transparent;
-      border: none;
-      padding: 0.7rem 0.8rem;
-      font-size: 0.95rem;
-      color: #e0f0ff;
-      width: 140px;
-      outline: none;
-      letter-spacing: 0.3px;
-    }
-    .search-wrapper input::placeholder {
-      color: #6a8daa;
-      font-weight: 300;
-    }
-    .search-wrapper button {
-      background: rgba(0, 180, 255, 0.2);
-      border: 1px solid #2ad4ff60;
-      color: #b6eaff;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: 0.25s;
-      font-size: 0.85rem;
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .search-wrapper button:hover {
-      background: rgba(0, 200, 255, 0.3);
-      box-shadow: 0 0 16px rgba(0, 180, 255, 0.3);
-      color: white;
-    }
-
-    /* ---- 多语言切换 (下拉) ---- */
-    .lang-selector {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0, 255, 255, 0.05);
-      padding: 0.3rem 1rem 0.3rem 1.2rem;
-      border-radius: 40px;
-      border: 1px solid rgba(0, 255, 255, 0.15);
-      backdrop-filter: blur(4px);
-    }
-    .lang-selector i {
-      color: #6ad4ff;
-      font-size: 0.9rem;
-    }
-    .lang-selector select {
-      background: transparent;
-      border: none;
-      color: #c2ecff;
-      font-size: 0.9rem;
-      padding: 0.3rem 0.2rem;
-      outline: none;
-      cursor: pointer;
-      font-weight: 400;
-      letter-spacing: 0.3px;
-    }
-    .lang-selector select option {
-      background: #0b1a2a;
-      color: #d0ecff;
-    }
-
-    /* 统计 / 动态标签 */
-    .stats-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      background: rgba(0, 30, 60, 0.4);
-      backdrop-filter: blur(4px);
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      margin-bottom: 2.5rem;
-      border: 1px solid rgba(0, 255, 255, 0.15);
-    }
-
-    .stats-bar .badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1rem;
-      color: #b0eaff;
-    }
-
-    .stats-bar .badge i {
-      color: #2ad4ff;
-    }
-
-    .badge .highlight {
-      color: #9fdcff;
-      font-weight: 600;
-      background: rgba(0, 200, 255, 0.15);
-      padding: 0.2rem 1rem;
-      border-radius: 30px;
-      border: 1px solid #3ac0ff;
-    }
-
-    /* 分类筛选标签 (科技感胶囊) */
-    .filter-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 16px;
-      margin-bottom: 2.8rem;
-      padding: 0.6rem 0;
-    }
-
-    .filter-tab {
-      background: rgba(0, 40, 70, 0.5);
-      backdrop-filter: blur(4px);
-      padding: 0.6rem 1.8rem;
-      border-radius: 40px;
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      color: #b6dfff;
-      font-weight: 500;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: 0.25s ease;
-      box-shadow: 0 0 6px rgba(0, 180, 255, 0.1);
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .filter-tab i {
-      color: #6ad4ff;
-      font-size: 0.9rem;
-    }
-
-    .filter-tab:hover, .filter-tab.active {
-      background: rgba(0, 180, 255, 0.2);
-      border-color: #4fc3ff;
-      box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
-      color: white;
-      transform: scale(1.02);
-    }
-
-    /* 游戏网格 —— 科技卡片 */
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 28px 22px;
-      margin-top: 10px;
-    }
-
-    .game-card {
-      background: rgba(6, 18, 34, 0.7);
-      backdrop-filter: blur(6px);
-      border-radius: 28px;
-      padding: 1.4rem 1rem 1.2rem;
-      border: 1px solid rgba(0, 200, 255, 0.15);
-      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .game-card::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.04), transparent 70%);
-      pointer-events: none;
-    }
-
-    .game-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      border-color: #4fc3ff;
-      box-shadow: 0 10px 30px rgba(0, 150, 255, 0.25);
-      background: rgba(8, 28, 50, 0.8);
-    }
-
-    .game-icon {
-      font-size: 2.6rem;
-      margin-bottom: 10px;
-      color: #7ad0ff;
-      filter: drop-shadow(0 0 6px #00a6ff);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .game-icon i {
-      background: rgba(0, 255, 255, 0.05);
-      padding: 6px;
-      border-radius: 16px;
-    }
-
-    .game-tag {
-      display: inline-block;
-      font-size: 0.6rem;
-      font-weight: 600;
-      padding: 0.25rem 0.9rem;
-      border-radius: 30px;
-      background: rgba(0, 200, 255, 0.12);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      color: #aae0ff;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .game-name {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin: 10px 0 6px;
-      color: #ecf9ff;
-      letter-spacing: 0.3px;
-      line-height: 1.3;
-    }
-
-    .game-meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 12px;
-      font-size: 0.75rem;
-      color: #8bb8d9;
-      border-top: 1px solid rgba(0, 255, 255, 0.08);
-      padding-top: 12px;
-    }
-
-    .game-links {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .game-links a {
-      color: #b0e5ff;
-      background: rgba(0, 100, 200, 0.15);
-      padding: 0.3rem 0.8rem;
-      border-radius: 30px;
-      font-size: 0.7rem;
-      text-decoration: none;
-      border: 1px solid rgba(0, 200, 255, 0.2);
-      transition: 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .game-links a.free {
-      background: rgba(0, 230, 118, 0.12);
-      border-color: #2ecc71;
-      color: #9effc0;
-    }
-
-    .game-links a.premium {
-      background: rgba(255, 215, 0, 0.08);
-      border-color: #f1c40f;
-      color: #ffe28a;
-    }
-
-    .game-links a:hover {
-      background: rgba(0, 200, 255, 0.25);
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(0, 180, 255, 0.3);
-    }
-
-    .game-links a i {
-      font-size: 0.7rem;
-    }
-
-    /* 分类标识小圆点 */
-    .category-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(0, 255, 200, 0.08);
-      padding: 0.2rem 0.8rem;
-      border-radius: 30px;
-      border: 1px solid #2ad4ff40;
-      font-size: 0.55rem;
-      color: #95d5ff;
-      letter-spacing: 0.5px;
-      backdrop-filter: blur(2px);
-    }
-
-    /* 页脚 邮箱重复展示 */
-    .footer-email {
-      margin-top: 4rem;
-      text-align: center;
-      padding: 1.5rem 0;
-      border-top: 1px solid rgba(0, 255, 255, 0.08);
-      color: #7fa9c9;
-      font-size: 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .footer-email i {
-      color: #4fc3ff;
-      font-size: 1.4rem;
-    }
-
-    .footer-email .email-highlight {
-      background: rgba(0, 180, 255, 0.08);
-      padding: 0.3rem 2rem;
-      border-radius: 60px;
-      border: 1px solid #2ad4ff40;
-      color: #b0ecff;
-      font-weight: 400;
-      letter-spacing: 1px;
-    }
-
-    /* 空状态 & 响应式 */
-    .no-games {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 4rem;
-      color: #6a8daa;
-    }
-
-    @media (max-width: 820px) {
-      .header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
-        border-radius: 32px;
-      }
-      .header-right {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-      }
-      .email-box {
-        justify-content: center;
-      }
-      .search-wrapper {
-        width: 100%;
-      }
-      .search-wrapper input {
-        width: 100%;
-      }
-      .lang-selector {
-        justify-content: center;
-      }
-      .stats-bar {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        border-radius: 40px;
-      }
-      .filter-tabs {
-        justify-content: center;
-      }
-    }
-
-    /* 滚动条科技感 */
-    ::-webkit-scrollbar {
-      width: 8px;
-      background: #0a1420;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1a5f7a;
-      border-radius: 10px;
-      border: 1px solid #00a6ff40;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI','Poppins',system-ui,sans-serif; }
+    body { background:radial-gradient(circle at 20% 30%,#0b0e1a,#03050b); min-height:100vh; padding:2rem 1.5rem; color:#e0f0ff; }
+    body::before { content:''; position:fixed; top:0; left:0; width:100%; height:100%; background-image:linear-gradient(rgba(0,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,255,0.03) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; z-index:0; }
+    .container { max-width:1440px; margin:0 auto; position:relative; z-index:2; }
+    .header { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-bottom:2.8rem; padding:1.2rem 2rem; background:rgba(8,20,40,0.55); backdrop-filter:blur(8px); border:1px solid rgba(0,255,255,0.25); border-radius:48px; box-shadow:0 0 30px rgba(0,180,255,0.2); gap:16px; }
+    .logo h1 { font-size:2.1rem; font-weight:600; background:linear-gradient(135deg,#a0f0ff,#5b9eff,#b47cff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:2px; text-shadow:0 0 20px rgba(0,180,255,0.3); }
+    .logo i { margin-right:12px; color:#7af0ff; filter:drop-shadow(0 0 8px cyan); font-size:2rem; }
+    .header-right { display:flex; flex-wrap:wrap; align-items:center; gap:18px; }
+    .email-box { background:rgba(0,255,255,0.08); padding:0.6rem 1.8rem; border-radius:40px; border:1px solid #2ad4ff; box-shadow:0 0 15px rgba(0,200,255,0.2); font-size:1.1rem; display:flex; align-items:center; gap:12px; backdrop-filter:blur(4px); }
+    .email-box i { color:#6ee7ff; font-size:1.4rem; }
+    .email-box span { color:#c2ecff; letter-spacing:1px; font-weight:400; }
+    .search-wrapper { position:relative; display:flex; align-items:center; background:rgba(0,255,255,0.06); border:1px solid rgba(0,255,255,0.2); border-radius:60px; padding:0.1rem 0.1rem 0.1rem 1.4rem; backdrop-filter:blur(6px); transition:0.3s; min-width:200px; }
+    .search-wrapper:focus-within { border-color:#4fc3ff; box-shadow:0 0 20px rgba(0,180,255,0.25); background:rgba(0,40,70,0.4); }
+    .search-wrapper i { color:#6ad4ff; font-size:1rem; opacity:0.7; }
+    .search-wrapper input { background:transparent; border:none; padding:0.7rem 0.8rem; font-size:0.95rem; color:#e0f0ff; width:140px; outline:none; letter-spacing:0.3px; }
+    .search-wrapper input::placeholder { color:#6a8daa; font-weight:300; }
+    .search-wrapper button { background:rgba(0,180,255,0.2); border:1px solid #2ad4ff60; color:#b6eaff; padding:0.5rem 1.2rem; border-radius:40px; cursor:pointer; font-weight:500; transition:0.25s; font-size:0.85rem; backdrop-filter:blur(4px); display:flex; align-items:center; gap:6px; }
+    .search-wrapper button:hover { background:rgba(0,200,255,0.3); box-shadow:0 0 16px rgba(0,180,255,0.3); color:white; }
+    .lang-selector { display:flex; align-items:center; gap:8px; background:rgba(0,255,255,0.05); padding:0.3rem 1rem 0.3rem 1.2rem; border-radius:40px; border:1px solid rgba(0,255,255,0.15); backdrop-filter:blur(4px); }
+    .lang-selector i { color:#6ad4ff; font-size:0.9rem; }
+    .lang-selector select { background:transparent; border:none; color:#c2ecff; font-size:0.9rem; padding:0.3rem 0.2rem; outline:none; cursor:pointer; font-weight:400; letter-spacing:0.3px; }
+    .lang-selector select option { background:#0b1a2a; color:#d0ecff; }
+    .stats-bar { display:flex; flex-wrap:wrap; justify-content:space-between; background:rgba(0,30,60,0.4); backdrop-filter:blur(4px); padding:0.8rem 2rem; border-radius:60px; margin-bottom:2.5rem; border:1px solid rgba(0,255,255,0.15); }
+    .stats-bar .badge { display:flex; align-items:center; gap:10px; font-size:1rem; color:#b0eaff; }
+    .stats-bar .badge i { color:#2ad4ff; }
+    .badge .highlight { color:#9fdcff; font-weight:600; background:rgba(0,200,255,0.15); padding:0.2rem 1rem; border-radius:30px; border:1px solid #3ac0ff; }
+    .filter-tabs { display:flex; flex-wrap:wrap; gap:12px 16px; margin-bottom:2.8rem; padding:0.6rem 0; }
+    .filter-tab { background:rgba(0,40,70,0.5); backdrop-filter:blur(4px); padding:0.6rem 1.8rem; border-radius:40px; border:1px solid rgba(0,255,255,0.2); color:#b6dfff; font-weight:500; font-size:0.95rem; cursor:pointer; transition:0.25s ease; box-shadow:0 0 6px rgba(0,180,255,0.1); letter-spacing:0.5px; display:flex; align-items:center; gap:8px; }
+    .filter-tab i { color:#6ad4ff; font-size:0.9rem; }
+    .filter-tab:hover, .filter-tab.active { background:rgba(0,180,255,0.2); border-color:#4fc3ff; box-shadow:0 0 20px rgba(0,180,255,0.3); color:white; transform:scale(1.02); }
+    .game-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:28px 22px; margin-top:10px; }
+    .game-card { background:rgba(6,18,34,0.7); backdrop-filter:blur(6px); border-radius:28px; padding:1.4rem 1rem 1.2rem; border:1px solid rgba(0,200,255,0.15); transition:all 0.25s cubic-bezier(0.2,0.9,0.4,1); box-shadow:0 6px 18px rgba(0,0,0,0.6); display:flex; flex-direction:column; position:relative; overflow:hidden; }
+    .game-card::after { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 30% 40%,rgba(0,255,255,0.04),transparent 70%); pointer-events:none; }
+    .game-card:hover { transform:translateY(-6px) scale(1.01); border-color:#4fc3ff; box-shadow:0 10px 30px rgba(0,150,255,0.25); background:rgba(8,28,50,0.8); }
+    .game-icon { font-size:2.6rem; margin-bottom:10px; color:#7ad0ff; filter:drop-shadow(0 0 6px #00a6ff); display:flex; justify-content:space-between; align-items:center; }
+    .game-icon i { background:rgba(0,255,255,0.05); padding:6px; border-radius:16px; }
+    .game-tag { display:inline-block; font-size:0.6rem; font-weight:600; padding:0.25rem 0.9rem; border-radius:30px; background:rgba(0,200,255,0.12); border:1px solid rgba(0,255,255,0.2); color:#aae0ff; letter-spacing:0.5px; text-transform:uppercase; }
+    .game-name { font-size:1.2rem; font-weight:600; margin:10px 0 6px; color:#ecf9ff; letter-spacing:0.3px; line-height:1.3; }
+    .game-meta { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; margin-top:12px; font-size:0.75rem; color:#8bb8d9; border-top:1px solid rgba(0,255,255,0.08); padding-top:12px; }
+    .game-links { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .game-links a { color:#b0e5ff; background:rgba(0,100,200,0.15); padding:0.3rem 0.8rem; border-radius:30px; font-size:0.7rem; text-decoration:none; border:1px solid rgba(0,200,255,0.2); transition:0.2s; display:inline-flex; align-items:center; gap:5px; }
+    .game-links a.free { background:rgba(0,230,118,0.12); border-color:#2ecc71; color:#9effc0; }
+    .game-links a.premium { background:rgba(255,215,0,0.08); border-color:#f1c40f; color:#ffe28a; }
+    .game-links a:hover { background:rgba(0,200,255,0.25); transform:scale(1.05); box-shadow:0 0 12px rgba(0,180,255,0.3); }
+    .game-links a i { font-size:0.7rem; }
+    .category-badge { position:absolute; top:16px; right:16px; background:rgba(0,255,200,0.08); padding:0.2rem 0.8rem; border-radius:30px; border:1px solid #2ad4ff40; font-size:0.55rem; color:#95d5ff; letter-spacing:0.5px; backdrop-filter:blur(2px); }
+    .footer-email { margin-top:4rem; text-align:center; padding:1.5rem 0; border-top:1px solid rgba(0,255,255,0.08); color:#7fa9c9; font-size:1rem; display:flex; justify-content:center; align-items:center; gap:18px; flex-wrap:wrap; }
+    .footer-email i { color:#4fc3ff; font-size:1.4rem; }
+    .footer-email .email-highlight { background:rgba(0,180,255,0.08); padding:0.3rem 2rem; border-radius:60px; border:1px solid #2ad4ff40; color:#b0ecff; font-weight:400; letter-spacing:1px; }
+    .no-games { grid-column:1/-1; text-align:center; padding:4rem; color:#6a8daa; }
+    @media (max-width:820px) { .header { flex-direction:column; align-items:stretch; gap:16px; border-radius:32px; } .header-right { flex-direction:column; align-items:stretch; gap:12px; } .email-box { justify-content:center; } .search-wrapper { width:100%; } .search-wrapper input { width:100%; } .lang-selector { justify-content:center; } .stats-bar { flex-direction:column; align-items:center; gap:8px; border-radius:40px; } .filter-tabs { justify-content:center; } }
+    ::-webkit-scrollbar { width:8px; background:#0a1420; }
+    ::-webkit-scrollbar-thumb { background:#1a5f7a; border-radius:10px; border:1px solid #00a6ff40; }
   </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- 头部 科技风 + 邮箱 + 搜索 + 多语言下拉 -->
+  <!-- 头部 -->
   <header class="header">
-    <div class="logo">
-      <h1><i class="fas fa-microchip"></i> GAME·NEXUS</h1>
-    </div>
+    <div class="logo"><h1><i class="fas fa-microchip"></i> GAME·NEXUS</h1></div>
     <div class="header-right">
-      <!-- 搜索框 -->
-      <div class="search-wrapper" id="searchWrapper">
+      <div class="search-wrapper">
         <i class="fas fa-search"></i>
         <input type="text" id="searchInput" placeholder="搜索游戏..." aria-label="搜索游戏" />
         <button id="searchBtn"><i class="fas fa-arrow-right"></i> 跳转</button>
       </div>
-
-      <!-- 多语言下拉 (10种国际语言) -->
       <div class="lang-selector">
         <i class="fas fa-globe"></i>
         <select id="langSelect">
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-          <option value="ru">Русский</option>
-          <option value="ar">العربية</option>
+          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option>
+          <option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option>
+          <option value="de">Deutsch</option><option value="ru">Русский</option><option value="ar">العربية</option>
           <option value="pt">Português</option>
         </select>
       </div>
-
       <div class="email-box">
-        <i class="fas fa-envelope"></i>
-        <span>3880374029@qq.com</span>
-        <i class="fas fa-chevron-right" style="font-size: 0.8rem; opacity: 0.6;"></i>
+        <i class="fas fa-envelope"></i><span>3880374029@qq.com</span>
+        <i class="fas fa-chevron-right" style="font-size:0.8rem;opacity:0.6;"></i>
       </div>
     </div>
   </header>
@@ -547,11 +94,11 @@
   <div class="stats-bar">
     <div class="badge"><i class="fas fa-database"></i> <span data-i18n="game_lib">游戏库</span> <span class="highlight" id="gameCount">1500</span></div>
     <div class="badge"><i class="fas fa-tag"></i> <span data-i18n="categories">分类</span> <span class="highlight">12</span></div>
-    <div class="badge"><i class="fas fa-check-circle" style="color: #2ecc71;"></i> <span data-i18n="premium_free">正版 + 免费</span></div>
-    <div class="badge"><i class="fas fa-bolt" style="color: #f1c40f;"></i> <span data-i18n="tech_speed">科技极速</span></div>
+    <div class="badge"><i class="fas fa-check-circle" style="color:#2ecc71;"></i> <span data-i18n="premium_free">正版 + 免费</span></div>
+    <div class="badge"><i class="fas fa-bolt" style="color:#f1c40f;"></i> <span data-i18n="tech_speed">科技极速</span></div>
   </div>
 
-  <!-- 分类筛选 (所有分类) -->
+  <!-- 分类筛选 -->
   <div class="filter-tabs" id="filterTabs">
     <div class="filter-tab active" data-category="all"><i class="fas fa-globe"></i> <span data-i18n="all">全部</span></div>
     <div class="filter-tab" data-category="射击"><i class="fas fa-crosshairs"></i> <span data-i18n="shooter">射击</span></div>
@@ -577,151 +124,66 @@
     <span data-i18n="contact_email">联系邮箱：</span>
     <span class="email-highlight"><i class="fas fa-envelope-open-text"></i> 3880374029@qq.com</span>
     <span style="opacity:0.5;">|</span>
-    <span style="font-size:0.85rem; color:#6a8daa;" data-i18n="footer_note">所有游戏均提供正版 & 免费通道</span>
+    <span style="font-size:0.85rem; color:#6a8daa;" data-i18n="footer_note">所有游戏均提供正版 & 免费渠道</span>
   </div>
 </div>
 
 <script>
   (function() {
-    // --------------------------------------------------------------
-    // 1. 多语言字典 (10种语言)
-    // --------------------------------------------------------------
+    // ---- 多语言字典 (10种) ----
     const i18n = {
-      zh: {
-        game_lib: '游戏库', categories: '分类', premium_free: '正版 + 免费', tech_speed: '科技极速',
-        all: '全部', shooter: '射击', rpg: '角色扮演', action: '动作', adventure: '冒险',
-        strategy: '策略', racing: '竞速', sports: '体育', fighting: '格斗', moba: 'MOBA',
-        survival: '生存', sandbox: '沙盒', card: '卡牌',
-        contact_email: '联系邮箱：', footer_note: '所有游戏均提供正版 & 免费通道',
-        search_placeholder: '搜索游戏...', search_btn: '跳转'
-      },
-      en: {
-        game_lib: 'Game Library', categories: 'Categories', premium_free: 'Premium + Free', tech_speed: 'Tech Speed',
-        all: 'All', shooter: 'Shooter', rpg: 'RPG', action: 'Action', adventure: 'Adventure',
-        strategy: 'Strategy', racing: 'Racing', sports: 'Sports', fighting: 'Fighting', moba: 'MOBA',
-        survival: 'Survival', sandbox: 'Sandbox', card: 'Card',
-        contact_email: 'Contact Email:', footer_note: 'All games offer premium & free access',
-        search_placeholder: 'Search games...', search_btn: 'Go'
-      },
-      ja: {
-        game_lib: 'ゲームライブラリ', categories: 'カテゴリ', premium_free: '正規 + 無料', tech_speed: 'テックスピード',
-        all: 'すべて', shooter: 'シューター', rpg: 'RPG', action: 'アクション', adventure: 'アドベンチャー',
-        strategy: 'ストラテジー', racing: 'レーシング', sports: 'スポーツ', fighting: '格闘', moba: 'MOBA',
-        survival: 'サバイバル', sandbox: 'サンドボックス', card: 'カード',
-        contact_email: '連絡先メール：', footer_note: 'すべてのゲームは正規版と無料版を提供',
-        search_placeholder: 'ゲームを検索...', search_btn: '検索'
-      },
-      ko: {
-        game_lib: '게임 라이브러리', categories: '카테고리', premium_free: '정품 + 무료', tech_speed: '테크 스피드',
-        all: '전체', shooter: '슈터', rpg: 'RPG', action: '액션', adventure: '어드벤처',
-        strategy: '전략', racing: '레이싱', sports: '스포츠', fighting: '격투', moba: 'MOBA',
-        survival: '서바이벌', sandbox: '샌드박스', card: '카드',
-        contact_email: '연락처 이메일:', footer_note: '모든 게임은 정품 및 무료 버전 제공',
-        search_placeholder: '게임 검색...', search_btn: '이동'
-      },
-      es: {
-        game_lib: 'Biblioteca de juegos', categories: 'Categorías', premium_free: 'Premium + Gratis', tech_speed: 'Velocidad Tech',
-        all: 'Todo', shooter: 'Disparos', rpg: 'RPG', action: 'Acción', adventure: 'Aventura',
-        strategy: 'Estrategia', racing: 'Carreras', sports: 'Deportes', fighting: 'Peleas', moba: 'MOBA',
-        survival: 'Supervivencia', sandbox: 'Sandbox', card: 'Cartas',
-        contact_email: 'Correo de contacto:', footer_note: 'Todos los juegos ofrecen acceso premium y gratuito',
-        search_placeholder: 'Buscar juegos...', search_btn: 'Ir'
-      },
-      fr: {
-        game_lib: 'Bibliothèque de jeux', categories: 'Catégories', premium_free: 'Premium + Gratuit', tech_speed: 'Vitesse Tech',
-        all: 'Tout', shooter: 'Tir', rpg: 'RPG', action: 'Action', adventure: 'Aventure',
-        strategy: 'Stratégie', racing: 'Course', sports: 'Sports', fighting: 'Combat', moba: 'MOBA',
-        survival: 'Survie', sandbox: 'Sandbox', card: 'Carte',
-        contact_email: 'Email de contact :', footer_note: 'Tous les jeux offrent un accès premium et gratuit',
-        search_placeholder: 'Rechercher des jeux...', search_btn: 'Aller'
-      },
-      de: {
-        game_lib: 'Spielebibliothek', categories: 'Kategorien', premium_free: 'Premium + Kostenlos', tech_speed: 'Tech-Geschwindigkeit',
-        all: 'Alle', shooter: 'Shooter', rpg: 'RPG', action: 'Aktion', adventure: 'Abenteuer',
-        strategy: 'Strategie', racing: 'Rennen', sports: 'Sport', fighting: 'Kampf', moba: 'MOBA',
-        survival: 'Überleben', sandbox: 'Sandbox', card: 'Karte',
-        contact_email: 'Kontakt-E-Mail:', footer_note: 'Alle Spiele bieten Premium- und kostenlosen Zugang',
-        search_placeholder: 'Spiele suchen...', search_btn: 'Los'
-      },
-      ru: {
-        game_lib: 'Библиотека игр', categories: 'Категории', premium_free: 'Премиум + Бесплатно', tech_speed: 'Техно-скорость',
-        all: 'Все', shooter: 'Шутер', rpg: 'RPG', action: 'Экшен', adventure: 'Приключение',
-        strategy: 'Стратегия', racing: 'Гонки', sports: 'Спорт', fighting: 'Файтинг', moba: 'MOBA',
-        survival: 'Выживание', sandbox: 'Песочница', card: 'Карты',
-        contact_email: 'Контактный email:', footer_note: 'Все игры предлагают премиум и бесплатный доступ',
-        search_placeholder: 'Поиск игр...', search_btn: 'Перейти'
-      },
-      ar: {
-        game_lib: 'مكتبة الألعاب', categories: 'التصنيفات', premium_free: 'بريميوم + مجاني', tech_speed: 'سرعة تقنية',
-        all: 'الكل', shooter: 'ألعاب إطلاق نار', rpg: 'آر بي جي', action: 'أكشن', adventure: 'مغامرة',
-        strategy: 'استراتيجية', racing: 'سباقات', sports: 'رياضة', fighting: 'قتال', moba: 'MOBA',
-        survival: 'بقاء', sandbox: 'صندوق رمل', card: 'بطاقات',
-        contact_email: 'البريد الإلكتروني للتواصل:', footer_note: 'جميع الألعاب توفر وصولاً مميزاً ومجانياً',
-        search_placeholder: 'ابحث عن ألعاب...', search_btn: 'اذهب'
-      },
-      pt: {
-        game_lib: 'Biblioteca de jogos', categories: 'Categorias', premium_free: 'Premium + Grátis', tech_speed: 'Velocidade Tech',
-        all: 'Todos', shooter: 'Tiro', rpg: 'RPG', action: 'Ação', adventure: 'Aventura',
-        strategy: 'Estratégia', racing: 'Corrida', sports: 'Esportes', fighting: 'Luta', moba: 'MOBA',
-        survival: 'Sobrevivência', sandbox: 'Sandbox', card: 'Cartas',
-        contact_email: 'E-mail de contato:', footer_note: 'Todos os jogos oferecem acesso premium e gratuito',
-        search_placeholder: 'Pesquisar jogos...', search_btn: 'Ir'
-      }
+      zh: { game_lib:'游戏库', categories:'分类', premium_free:'正版 + 免费', tech_speed:'科技极速', all:'全部', shooter:'射击', rpg:'角色扮演', action:'动作', adventure:'冒险', strategy:'策略', racing:'竞速', sports:'体育', fighting:'格斗', moba:'MOBA', survival:'生存', sandbox:'沙盒', card:'卡牌', contact_email:'联系邮箱：', footer_note:'所有游戏均提供正版 & 免费渠道', search_placeholder:'搜索游戏...', search_btn:'跳转' },
+      en: { game_lib:'Game Library', categories:'Categories', premium_free:'Premium + Free', tech_speed:'Tech Speed', all:'All', shooter:'Shooter', rpg:'RPG', action:'Action', adventure:'Adventure', strategy:'Strategy', racing:'Racing', sports:'Sports', fighting:'Fighting', moba:'MOBA', survival:'Survival', sandbox:'Sandbox', card:'Card', contact_email:'Contact Email:', footer_note:'All games offer premium & free access', search_placeholder:'Search games...', search_btn:'Go' },
+      ja: { game_lib:'ゲームライブラリ', categories:'カテゴリ', premium_free:'正規 + 無料', tech_speed:'テックスピード', all:'すべて', shooter:'シューター', rpg:'RPG', action:'アクション', adventure:'アドベンチャー', strategy:'ストラテジー', racing:'レーシング', sports:'スポーツ', fighting:'格闘', moba:'MOBA', survival:'サバイバル', sandbox:'サンドボックス', card:'カード', contact_email:'連絡先メール：', footer_note:'すべてのゲームは正規版と無料版を提供', search_placeholder:'ゲームを検索...', search_btn:'検索' },
+      ko: { game_lib:'게임 라이브러리', categories:'카테고리', premium_free:'정품 + 무료', tech_speed:'테크 스피드', all:'전체', shooter:'슈터', rpg:'RPG', action:'액션', adventure:'어드벤처', strategy:'전략', racing:'레이싱', sports:'스포츠', fighting:'격투', moba:'MOBA', survival:'서바이벌', sandbox:'샌드박스', card:'카드', contact_email:'연락처 이메일:', footer_note:'모든 게임은 정품 및 무료 버전 제공', search_placeholder:'게임 검색...', search_btn:'이동' },
+      es: { game_lib:'Biblioteca de juegos', categories:'Categorías', premium_free:'Premium + Gratis', tech_speed:'Velocidad Tech', all:'Todo', shooter:'Disparos', rpg:'RPG', action:'Acción', adventure:'Aventura', strategy:'Estrategia', racing:'Carreras', sports:'Deportes', fighting:'Peleas', moba:'MOBA', survival:'Supervivencia', sandbox:'Sandbox', card:'Cartas', contact_email:'Correo de contacto:', footer_note:'Todos los juegos ofrecen acceso premium y gratuito', search_placeholder:'Buscar juegos...', search_btn:'Ir' },
+      fr: { game_lib:'Bibliothèque de jeux', categories:'Catégories', premium_free:'Premium + Gratuit', tech_speed:'Vitesse Tech', all:'Tout', shooter:'Tir', rpg:'RPG', action:'Action', adventure:'Aventure', strategy:'Stratégie', racing:'Course', sports:'Sports', fighting:'Combat', moba:'MOBA', survival:'Survie', sandbox:'Sandbox', card:'Carte', contact_email:'Email de contact :', footer_note:'Tous les jeux offrent un accès premium et gratuit', search_placeholder:'Rechercher des jeux...', search_btn:'Aller' },
+      de: { game_lib:'Spielebibliothek', categories:'Kategorien', premium_free:'Premium + Kostenlos', tech_speed:'Tech-Geschwindigkeit', all:'Alle', shooter:'Shooter', rpg:'RPG', action:'Aktion', adventure:'Abenteuer', strategy:'Strategie', racing:'Rennen', sports:'Sport', fighting:'Kampf', moba:'MOBA', survival:'Überleben', sandbox:'Sandbox', card:'Karte', contact_email:'Kontakt-E-Mail:', footer_note:'Alle Spiele bieten Premium- und kostenlosen Zugang', search_placeholder:'Spiele suchen...', search_btn:'Los' },
+      ru: { game_lib:'Библиотека игр', categories:'Категории', premium_free:'Премиум + Бесплатно', tech_speed:'Техно-скорость', all:'Все', shooter:'Шутер', rpg:'RPG', action:'Экшен', adventure:'Приключение', strategy:'Стратегия', racing:'Гонки', sports:'Спорт', fighting:'Файтинг', moba:'MOBA', survival:'Выживание', sandbox:'Песочница', card:'Карты', contact_email:'Контактный email:', footer_note:'Все игры предлагают премиум и бесплатный доступ', search_placeholder:'Поиск игр...', search_btn:'Перейти' },
+      ar: { game_lib:'مكتبة الألعاب', categories:'التصنيفات', premium_free:'بريميوم + مجاني', tech_speed:'سرعة تقنية', all:'الكل', shooter:'ألعاب إطلاق نار', rpg:'آر بي جي', action:'أكشن', adventure:'مغامرة', strategy:'استراتيجية', racing:'سباقات', sports:'رياضة', fighting:'قتال', moba:'MOBA', survival:'بقاء', sandbox:'صندوق رمل', card:'بطاقات', contact_email:'البريد الإلكتروني للتواصل:', footer_note:'جميع الألعاب توفر وصولاً مميزاً ومجانياً', search_placeholder:'ابحث عن ألعاب...', search_btn:'اذهب' },
+      pt: { game_lib:'Biblioteca de jogos', categories:'Categorias', premium_free:'Premium + Grátis', tech_speed:'Velocidade Tech', all:'Todos', shooter:'Tiro', rpg:'RPG', action:'Ação', adventure:'Aventura', strategy:'Estratégia', racing:'Corrida', sports:'Esportes', fighting:'Luta', moba:'MOBA', survival:'Sobrevivência', sandbox:'Sandbox', card:'Cartas', contact_email:'E-mail de contato:', footer_note:'Todos os jogos oferecem acesso premium e gratuito', search_placeholder:'Pesquisar jogos...', search_btn:'Ir' }
     };
 
     let currentLang = 'zh';
-
     function updateLanguage(lang) {
-      const elements = document.querySelectorAll('[data-i18n]');
-      elements.forEach(el => {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
-        if (i18n[lang] && i18n[lang][key]) {
-          el.textContent = i18n[lang][key];
-        }
+        if (i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
       });
-      const searchInput = document.getElementById('searchInput');
-      const searchBtn = document.getElementById('searchBtn');
-      if (searchInput) {
-        searchInput.placeholder = i18n[lang].search_placeholder || '搜索游戏...';
-      }
-      if (searchBtn) {
-        searchBtn.innerHTML = `<i class="fas fa-arrow-right"></i> ${i18n[lang].search_btn || '跳转'}`;
-      }
+      const inp = document.getElementById('searchInput');
+      const btn = document.getElementById('searchBtn');
+      if (inp) inp.placeholder = i18n[lang].search_placeholder || '搜索游戏...';
+      if (btn) btn.innerHTML = `<i class="fas fa-arrow-right"></i> ${i18n[lang].search_btn || '跳转'}`;
     }
-
-    const langSelect = document.getElementById('langSelect');
-    langSelect.addEventListener('change', function() {
+    document.getElementById('langSelect').addEventListener('change', function() {
       currentLang = this.value;
       updateLanguage(currentLang);
     });
     updateLanguage('zh');
 
-    // --------------------------------------------------------------
-    // 2. 生成 1500 个知名游戏 (分类 + 名称 + 链接)
-    //    为每个游戏生成真实的下载链接 (模拟)
-    // --------------------------------------------------------------
-    const categories = ['射击', '角色扮演', '动作', '冒险', '策略', '竞速', '体育', '格斗', 'MOBA', '生存', '沙盒', '卡牌'];
-    
+    // ---- 生成游戏数据 (1500个) ----
+    const categories = ['射击','角色扮演','动作','冒险','策略','竞速','体育','格斗','MOBA','生存','沙盒','卡牌'];
     const gameNamePool = {
-      '射击': ['使命召唤', '战地', 'CS:GO', '守望先锋', '彩虹六号', 'Apex英雄', '光环', '毁灭战士', '孤岛危机', '无主之地', '泰坦陨落', '叛乱', '逃离塔科夫', '战地风云', '子弹风暴', '狙击精英', '德军总部', '地铁离去', '潜行者', '猎杀对决', '叛乱沙暴', '严阵以待', '零度之下', '装甲核心', '银河战士'],
-      '角色扮演': ['巫师3', '上古卷轴', '最终幻想', '辐射', '质量效应', '女神异闻录', '异度神剑', '勇者斗恶龙', '仙剑奇侠传', '神界原罪', '赛博朋克2077', '龙腾世纪', '暗黑破坏神', '永恒之柱', '天国拯救', '极乐迪斯科', '贪婪之秋', '吸血鬼', '开拓者', '废土', '核爆RPG', '咒语力量', '索拉斯塔', '博德之门', '冰风谷'],
-      '动作': ['鬼泣', '忍者龙剑传', '战神', '猎天使魔女', '仁王', '只狼', '艾尔登法环', '黑暗之魂', '血源诅咒', '对马岛之魂', '师父', '合金装备', '波斯王子', '星球大战绝地', '漫威蜘蛛侠', '蝙蝠侠阿卡姆', '睡狗', '如龙', '审判之眼', '丧尸围城', '虐杀原形', '暗影魔多', '中土世界', '星球大战原力释放', '但丁地狱'],
-      '冒险': ['古墓丽影', '神秘海域', '塞尔达传说', '荒野大镖客', 'GTA', '刺客信条', '看门狗', '地平线', '生化危机', '寂静岭', '心灵杀手', '瘟疫传说', '奇异人生', '艾迪芬奇的记忆', '森林', '深海迷航', '绿色地狱', '迷失', '流浪', '风之旅人', 'ABZU', '看火人', '逃生', '失忆症', '层层恐惧'],
-      '策略': ['文明', '全面战争', '星际争霸', '魔兽争霸', '帝国时代', '英雄连', '钢铁雄心', '群星', '无尽空间', '三国志', '信长之野望', '火焰纹章', '幽浮', '亿万僵尸', '北境之地', '家园', '太阳帝国的原罪', '哥特舰队', '战锤40K', '战争游戏', '突袭', '闪电战', '轴心国', '同盟国', '世界大战'],
-      '竞速': ['极限竞速', 'GT赛车', '极品飞车', '尘埃', 'F1', '摩托GP', '飙酷车神', '赛车计划', '热力追踪', '地平线5', '狂野飙车', '欧洲卡车模拟', '美国卡车模拟', '瓦利赛车', '火箭联盟', '赛道狂飙', '登山赛车', '都市赛车', '真实赛车', '超级房车赛', '科林麦克雷', '世界汽车拉力赛', '纳斯卡', '印地赛车', '勒芒'],
-      '体育': ['FIFA', 'NBA 2K', '实况足球', '麦登橄榄球', 'MLB The Show', 'NHL', 'UFC', 'WWE', '网球世界巡回赛', '高尔夫巡回赛', '极限国度', '滑雪', '拳击之夜', '街头篮球', '奥运会', '职业自行车', '环法', '越野摩托', 'MXGP', '登山滑雪', '极限巅峰', '冬运', '夏运', '田径', '游泳'],
-      '格斗': ['街头霸王', '铁拳', '拳皇', '真人快打', '死或生', '罪恶装备', '苍翼默示录', '侍魂', '灵魂能力', '龙珠斗士Z', '任天堂明星大乱斗', '多边形', 'ARMS', '格斗领域', '杀手本能', '月姬格斗', '夜下降生', '百万亚瑟王', '电击文库', 'JUMP大乱斗', '一拳超人', '我的英雄学院', '火影忍者疾风传', '死神', '海贼王'],
-      'MOBA': ['英雄联盟', 'DOTA 2', '王者荣耀', '风暴英雄', '梦三国', '神之浩劫', '虚荣', '传说对决', '超神英雄', '无尽对决', '非人学园', '决战！平安京', '第七史诗', '混沌与秩序', '小米超神', '时空召唤', '全民超神', '自由之战', '英魂之刃', '300英雄', '幻想全明星', '天翼决', '诸神之怒', '亚瑟王', '竞技场之王'],
-      '生存': ['我的世界', '森林', '饥荒', '腐蚀', '方舟', '泰拉瑞亚', '僵尸毁灭工程', '死亡搁浅', 'DayZ', '七日杀', '黎明杀机', '逃脱者', '绿色地狱', '深海迷航', '缺氧', '木筏生存', '荒岛求生', '死亡之夜', '迷雾', '幽暗森林', '残存之人', '生存主义者', '冰汽时代', '末日余生', '辐射岛'],
-      '沙盒': ['我的世界', '泰拉瑞亚', 'Garry\'s Mod', 'Roblox', '围攻', '坎巴拉太空计划', '星际边境', '星球探险家', '沙盒进化', '艾兰岛', '乐高世界', '宇宙沙盒', '模拟人生', '城市天际线', '过山车之星', '动物园之星', '侏罗纪世界', '海岛大亨', '纪元', '放逐之城', '中世纪王朝', '英灵神殿', '方舟生存进化', '创造营', '沙盒创造'],
-      '卡牌': ['炉石传说', '昆特牌', '万智牌', '游戏王', '影之诗', '杀戮尖塔', '怪物火车', '欺诈之地', '月圆之夜', '三国杀', '英雄战歌', '秘境对决', '五行师', '符石守护者', '卡片怪兽', '小丑牌', '邪恶冥刻', '塔防', '军团', '王牌与冒险', '命运之手', '王权', '王权陨落', '超时空方舟', '欺诈领主']
+      '射击': ['使命召唤','战地','CS:GO','守望先锋','彩虹六号','Apex英雄','光环','毁灭战士','孤岛危机','无主之地','泰坦陨落','叛乱','逃离塔科夫','战地风云','子弹风暴','狙击精英','德军总部','地铁离去','潜行者','猎杀对决','叛乱沙暴','严阵以待','零度之下','装甲核心','银河战士'],
+      '角色扮演': ['巫师3','上古卷轴','最终幻想','辐射','质量效应','女神异闻录','异度神剑','勇者斗恶龙','仙剑奇侠传','神界原罪','赛博朋克2077','龙腾世纪','暗黑破坏神','永恒之柱','天国拯救','极乐迪斯科','贪婪之秋','吸血鬼','开拓者','废土','核爆RPG','咒语力量','索拉斯塔','博德之门','冰风谷'],
+      '动作': ['鬼泣','忍者龙剑传','战神','猎天使魔女','仁王','只狼','艾尔登法环','黑暗之魂','血源诅咒','对马岛之魂','师父','合金装备','波斯王子','星球大战绝地','漫威蜘蛛侠','蝙蝠侠阿卡姆','睡狗','如龙','审判之眼','丧尸围城','虐杀原形','暗影魔多','中土世界','星球大战原力释放','但丁地狱'],
+      '冒险': ['古墓丽影','神秘海域','塞尔达传说','荒野大镖客','GTA','刺客信条','看门狗','地平线','生化危机','寂静岭','心灵杀手','瘟疫传说','奇异人生','艾迪芬奇的记忆','森林','深海迷航','绿色地狱','迷失','流浪','风之旅人','ABZU','看火人','逃生','失忆症','层层恐惧'],
+      '策略': ['文明','全面战争','星际争霸','魔兽争霸','帝国时代','英雄连','钢铁雄心','群星','无尽空间','三国志','信长之野望','火焰纹章','幽浮','亿万僵尸','北境之地','家园','太阳帝国的原罪','哥特舰队','战锤40K','战争游戏','突袭','闪电战','轴心国','同盟国','世界大战'],
+      '竞速': ['极限竞速','GT赛车','极品飞车','尘埃','F1','摩托GP','飙酷车神','赛车计划','热力追踪','地平线5','狂野飙车','欧洲卡车模拟','美国卡车模拟','瓦利赛车','火箭联盟','赛道狂飙','登山赛车','都市赛车','真实赛车','超级房车赛','科林麦克雷','世界汽车拉力赛','纳斯卡','印地赛车','勒芒'],
+      '体育': ['FIFA','NBA 2K','实况足球','麦登橄榄球','MLB The Show','NHL','UFC','WWE','网球世界巡回赛','高尔夫巡回赛','极限国度','滑雪','拳击之夜','街头篮球','奥运会','职业自行车','环法','越野摩托','MXGP','登山滑雪','极限巅峰','冬运','夏运','田径','游泳'],
+      '格斗': ['街头霸王','铁拳','拳皇','真人快打','死或生','罪恶装备','苍翼默示录','侍魂','灵魂能力','龙珠斗士Z','任天堂明星大乱斗','多边形','ARMS','格斗领域','杀手本能','月姬格斗','夜下降生','百万亚瑟王','电击文库','JUMP大乱斗','一拳超人','我的英雄学院','火影忍者疾风传','死神','海贼王'],
+      'MOBA': ['英雄联盟','DOTA 2','王者荣耀','风暴英雄','梦三国','神之浩劫','虚荣','传说对决','超神英雄','无尽对决','非人学园','决战！平安京','第七史诗','混沌与秩序','小米超神','时空召唤','全民超神','自由之战','英魂之刃','300英雄','幻想全明星','天翼决','诸神之怒','亚瑟王','竞技场之王'],
+      '生存': ['我的世界','森林','饥荒','腐蚀','方舟','泰拉瑞亚','僵尸毁灭工程','死亡搁浅','DayZ','七日杀','黎明杀机','逃脱者','绿色地狱','深海迷航','缺氧','木筏生存','荒岛求生','死亡之夜','迷雾','幽暗森林','残存之人','生存主义者','冰汽时代','末日余生','辐射岛'],
+      '沙盒': ['我的世界','泰拉瑞亚','Garry\'s Mod','Roblox','围攻','坎巴拉太空计划','星际边境','星球探险家','沙盒进化','艾兰岛','乐高世界','宇宙沙盒','模拟人生','城市天际线','过山车之星','动物园之星','侏罗纪世界','海岛大亨','纪元','放逐之城','中世纪王朝','英灵神殿','方舟生存进化','创造营','沙盒创造'],
+      '卡牌': ['炉石传说','昆特牌','万智牌','游戏王','影之诗','杀戮尖塔','怪物火车','欺诈之地','月圆之夜','三国杀','英雄战歌','秘境对决','五行师','符石守护者','卡片怪兽','小丑牌','邪恶冥刻','塔防','军团','王牌与冒险','命运之手','王权','王权陨落','超时空方舟','欺诈领主']
     };
 
-    // 生成真实下载链接 (模拟)
-    function generateDownloadLink(gameName, type) {
-      const baseUrl = 'https://download.gamehub.tech';
-      const slug = gameName.replace(/\s+/g, '-').toLowerCase();
-      return `${baseUrl}/${type}/${slug}`;
+    // ---- 生成直接跳转链接 (正版→Steam搜索, 免费→itch.io搜索) ----
+    function generateSteamLink(gameName) {
+      return `https://store.steampowered.com/search/?term=${encodeURIComponent(gameName)}`;
+    }
+    function generateItchLink(gameName) {
+      return `https://itch.io/search?q=${encodeURIComponent(gameName)}`;
     }
 
     function generateGames(count = 1500) {
@@ -733,9 +195,7 @@
         for (let i = 0; i < basePerCat; i++) {
           const nameIndex = i % pool.length;
           let gameName = pool[nameIndex];
-          if (i >= pool.length) {
-            gameName = gameName + ' ' + (i - pool.length + 1);
-          }
+          if (i >= pool.length) gameName = gameName + ' ' + (i - pool.length + 1);
           const hasFree = Math.random() > 0.25;
           const hasPremium = Math.random() > 0.35;
           games.push({
@@ -743,8 +203,8 @@
             category: cat,
             hasFree: hasFree,
             hasPremium: hasPremium,
-            freeLink: hasFree ? generateDownloadLink(gameName, 'free') : '#',
-            premiumLink: hasPremium ? generateDownloadLink(gameName, 'premium') : '#'
+            freeLink: hasFree ? generateItchLink(gameName) : '#',
+            premiumLink: hasPremium ? generateSteamLink(gameName) : '#'
           });
         }
       });
@@ -759,8 +219,8 @@
           category: cat,
           hasFree: hasFree,
           hasPremium: hasPremium,
-          freeLink: hasFree ? generateDownloadLink(name, 'free') : '#',
-          premiumLink: hasPremium ? generateDownloadLink(name, 'premium') : '#'
+          freeLink: hasFree ? generateItchLink(name) : '#',
+          premiumLink: hasPremium ? generateSteamLink(name) : '#'
         });
       }
       for (let i = games.length - 1; i > 0; i--) {
@@ -774,40 +234,28 @@
     document.getElementById('gameCount').innerText = allGames.length;
 
     function getCategoryIcon(cat) {
-      const map = {
-        '射击': 'fa-crosshairs', '角色扮演': 'fa-user-astronaut', '动作': 'fa-fist-raised',
-        '冒险': 'fa-map', '策略': 'fa-chess-queen', '竞速': 'fa-car', '体育': 'fa-basketball-ball',
-        '格斗': 'fa-user-ninja', 'MOBA': 'fa-users', '生存': 'fa-skull', '沙盒': 'fa-cubes', '卡牌': 'fa-id-card'
-      };
+      const map = { '射击':'fa-crosshairs','角色扮演':'fa-user-astronaut','动作':'fa-fist-raised','冒险':'fa-map','策略':'fa-chess-queen','竞速':'fa-car','体育':'fa-basketball-ball','格斗':'fa-user-ninja','MOBA':'fa-users','生存':'fa-skull','沙盒':'fa-cubes','卡牌':'fa-id-card' };
       return map[cat] || 'fa-gamepad';
     }
 
-    // 渲染游戏卡片
+    // ---- 渲染 ----
     function renderGames(filterCategory = 'all') {
       const grid = document.getElementById('gameGrid');
-      const filtered = filterCategory === 'all' 
-        ? allGames 
-        : allGames.filter(g => g.category === filterCategory);
-
+      const filtered = filterCategory === 'all' ? allGames : allGames.filter(g => g.category === filterCategory);
       if (filtered.length === 0) {
-        grid.innerHTML = `<div class="no-games"><i class="fas fa-robot" style="font-size:3rem; opacity:0.3;"></i><p style="margin-top:1rem;">没有找到该分类的游戏</p></div>`;
+        grid.innerHTML = `<div class="no-games"><i class="fas fa-robot" style="font-size:3rem;opacity:0.3;"></i><p style="margin-top:1rem;">没有找到该分类的游戏</p></div>`;
         return;
       }
-
       let html = '';
       filtered.forEach((game) => {
         const iconClass = getCategoryIcon(game.category);
-
         html += `
           <div class="game-card" data-category="${game.category}">
             <div class="category-badge">${game.category}</div>
-            <div class="game-icon">
-              <i class="fas ${iconClass}"></i>
-              <span class="game-tag"><i class="fas fa-cpu"></i> 科技</span>
-            </div>
+            <div class="game-icon"><i class="fas ${iconClass}"></i><span class="game-tag"><i class="fas fa-cpu"></i> 科技</span></div>
             <div class="game-name">${game.name}</div>
             <div class="game-meta">
-              <span style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+              <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
                 ${game.hasFree ? '<span style="color:#2ecc71;"><i class="fas fa-circle"></i> 免费</span>' : ''}
                 ${game.hasPremium ? '<span style="color:#f1c40f;"><i class="fas fa-certificate"></i> 正版</span>' : ''}
               </span>
@@ -819,25 +267,21 @@
           </div>
         `;
       });
-
       grid.innerHTML = html;
     }
 
-    // ---- 筛选逻辑 ----
-    const tabs = document.querySelectorAll('.filter-tab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function(e) {
-        tabs.forEach(t => t.classList.remove('active'));
+    // ---- 筛选 ----
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
-        const category = this.dataset.category;
-        renderGames(category);
+        renderGames(this.dataset.category);
       });
     });
 
-    // ---- 搜索逻辑 (实时跳转) ----
+    // ---- 搜索 ----
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
-
     function performSearch() {
       const query = searchInput.value.trim();
       if (!query) return;
@@ -849,11 +293,8 @@
           if (nameEl && nameEl.textContent.includes(query)) {
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
             card.style.borderColor = '#4fc3ff';
-            card.style.boxShadow = '0 0 30px rgba(0, 180, 255, 0.6)';
-            setTimeout(() => {
-              card.style.borderColor = '';
-              card.style.boxShadow = '';
-            }, 3000);
+            card.style.boxShadow = '0 0 30px rgba(0,180,255,0.6)';
+            setTimeout(() => { card.style.borderColor = ''; card.style.boxShadow = ''; }, 3000);
             return;
           }
         }
@@ -861,33 +302,24 @@
         if (allTab) {
           allTab.click();
           setTimeout(() => {
-            const cards2 = document.querySelectorAll('.game-card');
-            for (let card of cards2) {
+            document.querySelectorAll('.game-card').forEach(card => {
               const nameEl = card.querySelector('.game-name');
               if (nameEl && nameEl.textContent.includes(query)) {
                 card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 card.style.borderColor = '#4fc3ff';
-                card.style.boxShadow = '0 0 30px rgba(0, 180, 255, 0.6)';
-                setTimeout(() => {
-                  card.style.borderColor = '';
-                  card.style.boxShadow = '';
-                }, 3000);
-                return;
+                card.style.boxShadow = '0 0 30px rgba(0,180,255,0.6)';
+                setTimeout(() => { card.style.borderColor = ''; card.style.boxShadow = ''; }, 3000);
               }
-            }
+            });
           }, 100);
         }
       } else {
         alert('未找到相关游戏，请尝试其他关键词');
       }
     }
-
     searchBtn.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') performSearch();
-    });
+    searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') performSearch(); });
 
-    // 首次渲染全部
     renderGames('all');
   })();
 </script>
