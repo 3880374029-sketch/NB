@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
   <title>⚡ 科技游戏站 · 4500+ 多平台 · 官网直达</title>
-  <!-- Font Awesome 图标库 -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI','Poppins',system-ui,sans-serif; }
@@ -191,13 +192,12 @@
     function generateGames(count = 4500) {
       const games = [];
       const catKeys = Object.keys(gameNamePool);
-      const basePerCat = Math.floor(count / catKeys.length); // 约375
+      const basePerCat = Math.floor(count / catKeys.length);
       catKeys.forEach(cat => {
         const pool = gameNamePool[cat];
         for (let i = 0; i < basePerCat; i++) {
           const nameIndex = i % pool.length;
-          let gameName = pool[nameIndex];
-          if (i >= pool.length) gameName = gameName + ' ' + (i - pool.length + 1);
+          const gameName = pool[nameIndex]; // 直接使用名称，不加序号
           const hasFree = Math.random() > 0.25;
           const hasPremium = Math.random() > 0.35;
           games.push({
@@ -217,19 +217,19 @@
       while (games.length < count) {
         const cat = catKeys[Math.floor(Math.random() * catKeys.length)];
         const pool = gameNamePool[cat];
-        const name = pool[Math.floor(Math.random() * pool.length)] + ' ' + (Math.floor(Math.random() * 50) + 1);
+        const gameName = pool[Math.floor(Math.random() * pool.length)]; // 不加序号
         const hasFree = Math.random() > 0.25;
         const hasPremium = Math.random() > 0.35;
         games.push({
-          name: name,
+          name: gameName,
           category: cat,
           hasFree: hasFree,
           hasPremium: hasPremium,
-          freeLink: hasFree ? generateItchLink(name) : '#',
-          premiumLink: hasPremium ? generateSteamLink(name) : '#',
-          gogLink: generateGogLink(name),
-          epicLink: generateEpicLink(name),
-          officialLink: generateOfficialLink(name)
+          freeLink: hasFree ? generateItchLink(gameName) : '#',
+          premiumLink: hasPremium ? generateSteamLink(gameName) : '#',
+          gogLink: generateGogLink(gameName),
+          epicLink: generateEpicLink(gameName),
+          officialLink: generateOfficialLink(gameName)
         });
       }
       // 打乱
