@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-  <title>⚡ 科技游戏站 · 4500+ 多平台 · 官网直达</title>
+  <title>⚡ 科技游戏站 · 4500+ 多平台 · 多语言游戏名</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
@@ -81,10 +80,11 @@
       <div class="lang-selector">
         <i class="fas fa-globe"></i>
         <select id="langSelect">
-          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option>
-          <option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option>
-          <option value="de">Deutsch</option><option value="ru">Русский</option><option value="ar">العربية</option>
-          <option value="pt">Português</option>
+          <option value="zh">中文</option><option value="en">English</option>
+          <option value="ja">日本語</option><option value="ko">한국어</option>
+          <option value="es">Español</option><option value="fr">Français</option>
+          <option value="de">Deutsch</option><option value="ru">Русский</option>
+          <option value="ar">العربية</option><option value="pt">Português</option>
         </select>
       </div>
       <div class="email-box">
@@ -134,7 +134,7 @@
 
 <script>
   (function() {
-    // ---- 多语言字典 (10种) ----
+    // ---- 多语言字典 (界面文字) ----
     const i18n = {
       zh: { game_lib:'游戏库', categories:'分类', premium_free:'正版 + 免费', tech_speed:'科技极速', all:'全部', shooter:'射击', rpg:'角色扮演', action:'动作', adventure:'冒险', strategy:'策略', racing:'竞速', sports:'体育', fighting:'格斗', moba:'MOBA', survival:'生存', sandbox:'沙盒', card:'卡牌', contact_email:'联系邮箱：', footer_note:'所有游戏均提供正版 & 免费渠道', search_placeholder:'搜索游戏...', search_btn:'跳转' },
       en: { game_lib:'Game Library', categories:'Categories', premium_free:'Premium + Free', tech_speed:'Tech Speed', all:'All', shooter:'Shooter', rpg:'RPG', action:'Action', adventure:'Adventure', strategy:'Strategy', racing:'Racing', sports:'Sports', fighting:'Fighting', moba:'MOBA', survival:'Survival', sandbox:'Sandbox', card:'Card', contact_email:'Contact Email:', footer_note:'All games offer premium & free access', search_placeholder:'Search games...', search_btn:'Go' },
@@ -150,6 +150,7 @@
 
     let currentLang = 'zh';
     function updateLanguage(lang) {
+      // 更新界面文字
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
@@ -158,37 +159,130 @@
       const btn = document.getElementById('searchBtn');
       if (inp) inp.placeholder = i18n[lang].search_placeholder || '搜索游戏...';
       if (btn) btn.innerHTML = `<i class="fas fa-arrow-right"></i> ${i18n[lang].search_btn || '跳转'}`;
+      // 更新游戏名称 (重新渲染当前筛选)
+      const activeTab = document.querySelector('.filter-tab.active');
+      const category = activeTab ? activeTab.dataset.category : 'all';
+      renderGames(category);
     }
     document.getElementById('langSelect').addEventListener('change', function() {
       currentLang = this.value;
       updateLanguage(currentLang);
     });
-    updateLanguage('zh');
 
-    // ---- 生成游戏数据 (4500个) ----
-    const categories = ['射击','角色扮演','动作','冒险','策略','竞速','体育','格斗','MOBA','生存','沙盒','卡牌'];
+    // ---- 游戏名称多语言数据 (中英文) ----
+    // 为每个分类定义游戏名称对象数组 {zh, en}
     const gameNamePool = {
-      '射击': ['使命召唤','战地','CS:GO','守望先锋','彩虹六号','Apex英雄','光环','毁灭战士','孤岛危机','无主之地','泰坦陨落','叛乱','逃离塔科夫','战地风云','子弹风暴','狙击精英','德军总部','地铁离去','潜行者','猎杀对决','叛乱沙暴','严阵以待','零度之下','装甲核心','银河战士'],
-      '角色扮演': ['巫师3','上古卷轴','最终幻想','辐射','质量效应','女神异闻录','异度神剑','勇者斗恶龙','仙剑奇侠传','神界原罪','赛博朋克2077','龙腾世纪','暗黑破坏神','永恒之柱','天国拯救','极乐迪斯科','贪婪之秋','吸血鬼','开拓者','废土','核爆RPG','咒语力量','索拉斯塔','博德之门','冰风谷'],
-      '动作': ['鬼泣','忍者龙剑传','战神','猎天使魔女','仁王','只狼','艾尔登法环','黑暗之魂','血源诅咒','对马岛之魂','师父','合金装备','波斯王子','星球大战绝地','漫威蜘蛛侠','蝙蝠侠阿卡姆','睡狗','如龙','审判之眼','丧尸围城','虐杀原形','暗影魔多','中土世界','星球大战原力释放','但丁地狱'],
-      '冒险': ['古墓丽影','神秘海域','塞尔达传说','荒野大镖客','GTA','刺客信条','看门狗','地平线','生化危机','寂静岭','心灵杀手','瘟疫传说','奇异人生','艾迪芬奇的记忆','森林','深海迷航','绿色地狱','迷失','流浪','风之旅人','ABZU','看火人','逃生','失忆症','层层恐惧'],
-      '策略': ['文明','全面战争','星际争霸','魔兽争霸','帝国时代','英雄连','钢铁雄心','群星','无尽空间','三国志','信长之野望','火焰纹章','幽浮','亿万僵尸','北境之地','家园','太阳帝国的原罪','哥特舰队','战锤40K','战争游戏','突袭','闪电战','轴心国','同盟国','世界大战'],
-      '竞速': ['极限竞速','GT赛车','极品飞车','尘埃','F1','摩托GP','飙酷车神','赛车计划','热力追踪','地平线5','狂野飙车','欧洲卡车模拟','美国卡车模拟','瓦利赛车','火箭联盟','赛道狂飙','登山赛车','都市赛车','真实赛车','超级房车赛','科林麦克雷','世界汽车拉力赛','纳斯卡','印地赛车','勒芒'],
-      '体育': ['FIFA','NBA 2K','实况足球','麦登橄榄球','MLB The Show','NHL','UFC','WWE','网球世界巡回赛','高尔夫巡回赛','极限国度','滑雪','拳击之夜','街头篮球','奥运会','职业自行车','环法','越野摩托','MXGP','登山滑雪','极限巅峰','冬运','夏运','田径','游泳'],
-      '格斗': ['街头霸王','铁拳','拳皇','真人快打','死或生','罪恶装备','苍翼默示录','侍魂','灵魂能力','龙珠斗士Z','任天堂明星大乱斗','多边形','ARMS','格斗领域','杀手本能','月姬格斗','夜下降生','百万亚瑟王','电击文库','JUMP大乱斗','一拳超人','我的英雄学院','火影忍者疾风传','死神','海贼王'],
-      'MOBA': ['英雄联盟','DOTA 2','王者荣耀','风暴英雄','梦三国','神之浩劫','虚荣','传说对决','超神英雄','无尽对决','非人学园','决战！平安京','第七史诗','混沌与秩序','小米超神','时空召唤','全民超神','自由之战','英魂之刃','300英雄','幻想全明星','天翼决','诸神之怒','亚瑟王','竞技场之王'],
-      '生存': ['我的世界','森林','饥荒','腐蚀','方舟','泰拉瑞亚','僵尸毁灭工程','死亡搁浅','DayZ','七日杀','黎明杀机','逃脱者','绿色地狱','深海迷航','缺氧','木筏生存','荒岛求生','死亡之夜','迷雾','幽暗森林','残存之人','生存主义者','冰汽时代','末日余生','辐射岛'],
-      '沙盒': ['我的世界','泰拉瑞亚','Garry\'s Mod','Roblox','围攻','坎巴拉太空计划','星际边境','星球探险家','沙盒进化','艾兰岛','乐高世界','宇宙沙盒','模拟人生','城市天际线','过山车之星','动物园之星','侏罗纪世界','海岛大亨','纪元','放逐之城','中世纪王朝','英灵神殿','方舟生存进化','创造营','沙盒创造'],
-      '卡牌': ['炉石传说','昆特牌','万智牌','游戏王','影之诗','杀戮尖塔','怪物火车','欺诈之地','月圆之夜','三国杀','英雄战歌','秘境对决','五行师','符石守护者','卡片怪兽','小丑牌','邪恶冥刻','塔防','军团','王牌与冒险','命运之手','王权','王权陨落','超时空方舟','欺诈领主']
+      '射击': [
+        {zh:'使命召唤', en:'Call of Duty'}, {zh:'战地', en:'Battlefield'}, {zh:'CS:GO', en:'CS:GO'}, {zh:'守望先锋', en:'Overwatch'},
+        {zh:'彩虹六号', en:'Rainbow Six'}, {zh:'Apex英雄', en:'Apex Legends'}, {zh:'光环', en:'Halo'}, {zh:'毁灭战士', en:'DOOM'},
+        {zh:'孤岛危机', en:'Crysis'}, {zh:'无主之地', en:'Borderlands'}, {zh:'泰坦陨落', en:'Titanfall'}, {zh:'叛乱', en:'Insurgency'},
+        {zh:'逃离塔科夫', en:'Escape from Tarkov'}, {zh:'战地风云', en:'Battlefield'}, {zh:'子弹风暴', en:'Bulletstorm'}, {zh:'狙击精英', en:'Sniper Elite'},
+        {zh:'德军总部', en:'Wolfenstein'}, {zh:'地铁离去', en:'Metro Exodus'}, {zh:'潜行者', en:'S.T.A.L.K.E.R.'}, {zh:'猎杀对决', en:'Hunt Showdown'},
+        {zh:'叛乱沙暴', en:'Insurgency Sandstorm'}, {zh:'严阵以待', en:'Ready or Not'}, {zh:'零度之下', en:'Subnautica Below Zero'}, {zh:'装甲核心', en:'Armored Core'},
+        {zh:'银河战士', en:'Metroid'}
+      ],
+      '角色扮演': [
+        {zh:'巫师3', en:'The Witcher 3'}, {zh:'上古卷轴', en:'The Elder Scrolls'}, {zh:'最终幻想', en:'Final Fantasy'}, {zh:'辐射', en:'Fallout'},
+        {zh:'质量效应', en:'Mass Effect'}, {zh:'女神异闻录', en:'Persona'}, {zh:'异度神剑', en:'Xenoblade Chronicles'}, {zh:'勇者斗恶龙', en:'Dragon Quest'},
+        {zh:'仙剑奇侠传', en:'Chinese Paladin'}, {zh:'神界原罪', en:'Divinity Original Sin'}, {zh:'赛博朋克2077', en:'Cyberpunk 2077'}, {zh:'龙腾世纪', en:'Dragon Age'},
+        {zh:'暗黑破坏神', en:'Diablo'}, {zh:'永恒之柱', en:'Pillars of Eternity'}, {zh:'天国拯救', en:'Kingdom Come Deliverance'}, {zh:'极乐迪斯科', en:'Disco Elysium'},
+        {zh:'贪婪之秋', en:'GreedFall'}, {zh:'吸血鬼', en:'Vampyr'}, {zh:'开拓者', en:'Pathfinder'}, {zh:'废土', en:'Wasteland'},
+        {zh:'核爆RPG', en:'Atom RPG'}, {zh:'咒语力量', en:'SpellForce'}, {zh:'索拉斯塔', en:'Solasta'}, {zh:'博德之门', en:'Baldur\'s Gate'},
+        {zh:'冰风谷', en:'Icewind Dale'}
+      ],
+      '动作': [
+        {zh:'鬼泣', en:'Devil May Cry'}, {zh:'忍者龙剑传', en:'Ninja Gaiden'}, {zh:'战神', en:'God of War'}, {zh:'猎天使魔女', en:'Bayonetta'},
+        {zh:'仁王', en:'Nioh'}, {zh:'只狼', en:'Sekiro'}, {zh:'艾尔登法环', en:'Elden Ring'}, {zh:'黑暗之魂', en:'Dark Souls'},
+        {zh:'血源诅咒', en:'Bloodborne'}, {zh:'对马岛之魂', en:'Ghost of Tsushima'}, {zh:'师父', en:'Sifu'}, {zh:'合金装备', en:'Metal Gear Solid'},
+        {zh:'波斯王子', en:'Prince of Persia'}, {zh:'星球大战绝地', en:'Star Wars Jedi'}, {zh:'漫威蜘蛛侠', en:'Marvel\'s Spider-Man'}, {zh:'蝙蝠侠阿卡姆', en:'Batman Arkham'},
+        {zh:'睡狗', en:'Sleeping Dogs'}, {zh:'如龙', en:'Yakuza'}, {zh:'审判之眼', en:'Judgment'}, {zh:'丧尸围城', en:'Dead Rising'},
+        {zh:'虐杀原形', en:'Prototype'}, {zh:'暗影魔多', en:'Shadow of Mordor'}, {zh:'中土世界', en:'Middle-earth'}, {zh:'星球大战原力释放', en:'Star Wars Force Unleashed'},
+        {zh:'但丁地狱', en:'Dante\'s Inferno'}
+      ],
+      '冒险': [
+        {zh:'古墓丽影', en:'Tomb Raider'}, {zh:'神秘海域', en:'Uncharted'}, {zh:'塞尔达传说', en:'The Legend of Zelda'}, {zh:'荒野大镖客', en:'Red Dead Redemption'},
+        {zh:'GTA', en:'Grand Theft Auto'}, {zh:'刺客信条', en:'Assassin\'s Creed'}, {zh:'看门狗', en:'Watch Dogs'}, {zh:'地平线', en:'Horizon'},
+        {zh:'生化危机', en:'Resident Evil'}, {zh:'寂静岭', en:'Silent Hill'}, {zh:'心灵杀手', en:'Alan Wake'}, {zh:'瘟疫传说', en:'A Plague Tale'},
+        {zh:'奇异人生', en:'Life is Strange'}, {zh:'艾迪芬奇的记忆', en:'What Remains of Edith Finch'}, {zh:'森林', en:'The Forest'}, {zh:'深海迷航', en:'Subnautica'},
+        {zh:'绿色地狱', en:'Green Hell'}, {zh:'迷失', en:'Stray'}, {zh:'流浪', en:'Wander'}, {zh:'风之旅人', en:'Journey'},
+        {zh:'ABZU', en:'ABZÛ'}, {zh:'看火人', en:'Firewatch'}, {zh:'逃生', en:'Outlast'}, {zh:'失忆症', en:'Amnesia'},
+        {zh:'层层恐惧', en:'Layers of Fear'}
+      ],
+      '策略': [
+        {zh:'文明', en:'Civilization'}, {zh:'全面战争', en:'Total War'}, {zh:'星际争霸', en:'StarCraft'}, {zh:'魔兽争霸', en:'Warcraft'},
+        {zh:'帝国时代', en:'Age of Empires'}, {zh:'英雄连', en:'Company of Heroes'}, {zh:'钢铁雄心', en:'Hearts of Iron'}, {zh:'群星', en:'Stellaris'},
+        {zh:'无尽空间', en:'Endless Space'}, {zh:'三国志', en:'Romance of the Three Kingdoms'}, {zh:'信长之野望', en:'Nobunaga\'s Ambition'}, {zh:'火焰纹章', en:'Fire Emblem'},
+        {zh:'幽浮', en:'XCOM'}, {zh:'亿万僵尸', en:'They Are Billions'}, {zh:'北境之地', en:'Northgard'}, {zh:'家园', en:'Homeworld'},
+        {zh:'太阳帝国的原罪', en:'Sins of a Solar Empire'}, {zh:'哥特舰队', en:'Battlefleet Gothic'}, {zh:'战锤40K', en:'Warhammer 40K'}, {zh:'战争游戏', en:'Wargame'},
+        {zh:'突袭', en:'Sudden Strike'}, {zh:'闪电战', en:'Blitzkrieg'}, {zh:'轴心国', en:'Axis'}, {zh:'同盟国', en:'Allies'},
+        {zh:'世界大战', en:'World War'}
+      ],
+      '竞速': [
+        {zh:'极限竞速', en:'Forza Motorsport'}, {zh:'GT赛车', en:'Gran Turismo'}, {zh:'极品飞车', en:'Need for Speed'}, {zh:'尘埃', en:'Dirt'},
+        {zh:'F1', en:'F1'}, {zh:'摩托GP', en:'MotoGP'}, {zh:'飙酷车神', en:'The Crew'}, {zh:'赛车计划', en:'Project CARS'},
+        {zh:'热力追踪', en:'Hot Pursuit'}, {zh:'地平线5', en:'Forza Horizon 5'}, {zh:'狂野飙车', en:'Asphalt'}, {zh:'欧洲卡车模拟', en:'Euro Truck Simulator'},
+        {zh:'美国卡车模拟', en:'American Truck Simulator'}, {zh:'瓦利赛车', en:'WRC'}, {zh:'火箭联盟', en:'Rocket League'}, {zh:'赛道狂飙', en:'Trackmania'},
+        {zh:'登山赛车', en:'Hill Climb Racing'}, {zh:'都市赛车', en:'Real Racing'}, {zh:'真实赛车', en:'Real Racing'}, {zh:'超级房车赛', en:'Grid'},
+        {zh:'科林麦克雷', en:'Colin McRae Rally'}, {zh:'世界汽车拉力赛', en:'WRC'}, {zh:'纳斯卡', en:'NASCAR'}, {zh:'印地赛车', en:'IndyCar'},
+        {zh:'勒芒', en:'Le Mans'}
+      ],
+      '体育': [
+        {zh:'FIFA', en:'FIFA'}, {zh:'NBA 2K', en:'NBA 2K'}, {zh:'实况足球', en:'Pro Evolution Soccer'}, {zh:'麦登橄榄球', en:'Madden NFL'},
+        {zh:'MLB The Show', en:'MLB The Show'}, {zh:'NHL', en:'NHL'}, {zh:'UFC', en:'UFC'}, {zh:'WWE', en:'WWE'},
+        {zh:'网球世界巡回赛', en:'Tennis World Tour'}, {zh:'高尔夫巡回赛', en:'PGA Tour'}, {zh:'极限国度', en:'Riders Republic'}, {zh:'滑雪', en:'Skiing'},
+        {zh:'拳击之夜', en:'Fight Night'}, {zh:'街头篮球', en:'Street Basketball'}, {zh:'奥运会', en:'Olympic Games'}, {zh:'职业自行车', en:'Pro Cycling'},
+        {zh:'环法', en:'Tour de France'}, {zh:'越野摩托', en:'MXGP'}, {zh:'MXGP', en:'MXGP'}, {zh:'登山滑雪', en:'Snowboarding'},
+        {zh:'极限巅峰', en:'Steep'}, {zh:'冬运', en:'Winter Sports'}, {zh:'夏运', en:'Summer Sports'}, {zh:'田径', en:'Athletics'},
+        {zh:'游泳', en:'Swimming'}
+      ],
+      '格斗': [
+        {zh:'街头霸王', en:'Street Fighter'}, {zh:'铁拳', en:'Tekken'}, {zh:'拳皇', en:'The King of Fighters'}, {zh:'真人快打', en:'Mortal Kombat'},
+        {zh:'死或生', en:'Dead or Alive'}, {zh:'罪恶装备', en:'Guilty Gear'}, {zh:'苍翼默示录', en:'BlazBlue'}, {zh:'侍魂', en:'Samurai Shodown'},
+        {zh:'灵魂能力', en:'Soulcalibur'}, {zh:'龙珠斗士Z', en:'Dragon Ball FighterZ'}, {zh:'任天堂明星大乱斗', en:'Super Smash Bros.'}, {zh:'多边形', en:'Polygon'},
+        {zh:'ARMS', en:'ARMS'}, {zh:'格斗领域', en:'Fighting Layer'}, {zh:'杀手本能', en:'Killer Instinct'}, {zh:'月姬格斗', en:'Melty Blood'},
+        {zh:'夜下降生', en:'Under Night In-Birth'}, {zh:'百万亚瑟王', en:'Million Arthur'}, {zh:'电击文库', en:'Dengeki Bunko'}, {zh:'JUMP大乱斗', en:'Jump Force'},
+        {zh:'一拳超人', en:'One Punch Man'}, {zh:'我的英雄学院', en:'My Hero Academia'}, {zh:'火影忍者疾风传', en:'Naruto Shippuden'}, {zh:'死神', en:'Bleach'},
+        {zh:'海贼王', en:'One Piece'}
+      ],
+      'MOBA': [
+        {zh:'英雄联盟', en:'League of Legends'}, {zh:'DOTA 2', en:'DOTA 2'}, {zh:'王者荣耀', en:'Honor of Kings'}, {zh:'风暴英雄', en:'Heroes of the Storm'},
+        {zh:'梦三国', en:'Dream of the Three Kingdoms'}, {zh:'神之浩劫', en:'Smite'}, {zh:'虚荣', en:'Vainglory'}, {zh:'传说对决', en:'Arena of Valor'},
+        {zh:'超神英雄', en:'Heroes of Newerth'}, {zh:'无尽对决', en:'Mobile Legends'}, {zh:'非人学园', en:'Extraordinary Ones'}, {zh:'决战！平安京', en:'Onmyoji Arena'},
+        {zh:'第七史诗', en:'Epic Seven'}, {zh:'混沌与秩序', en:'Chaos and Order'}, {zh:'小米超神', en:'Mi Super God'}, {zh:'时空召唤', en:'Time Calling'},
+        {zh:'全民超神', en:'All Super God'}, {zh:'自由之战', en:'Free Battle'}, {zh:'英魂之刃', en:'Heroes Blade'}, {zh:'300英雄', en:'300 Heroes'},
+        {zh:'幻想全明星', en:'Fantasy All Stars'}, {zh:'天翼决', en:'Tianyi Jue'}, {zh:'诸神之怒', en:'Wrath of Gods'}, {zh:'亚瑟王', en:'King Arthur'},
+        {zh:'竞技场之王', en:'Arena King'}
+      ],
+      '生存': [
+        {zh:'我的世界', en:'Minecraft'}, {zh:'森林', en:'The Forest'}, {zh:'饥荒', en:'Don\'t Starve'}, {zh:'腐蚀', en:'Rust'},
+        {zh:'方舟', en:'Ark'}, {zh:'泰拉瑞亚', en:'Terraria'}, {zh:'僵尸毁灭工程', en:'Project Zomboid'}, {zh:'死亡搁浅', en:'Death Stranding'},
+        {zh:'DayZ', en:'DayZ'}, {zh:'七日杀', en:'7 Days to Die'}, {zh:'黎明杀机', en:'Dead by Daylight'}, {zh:'逃脱者', en:'The Escapists'},
+        {zh:'绿色地狱', en:'Green Hell'}, {zh:'深海迷航', en:'Subnautica'}, {zh:'缺氧', en:'Oxygen Not Included'}, {zh:'木筏生存', en:'Raft'},
+        {zh:'荒岛求生', en:'Stranded Deep'}, {zh:'死亡之夜', en:'Death Night'}, {zh:'迷雾', en:'Mist'}, {zh:'幽暗森林', en:'Darkwood'},
+        {zh:'残存之人', en:'Remnant'}, {zh:'生存主义者', en:'Survivalist'}, {zh:'冰汽时代', en:'Frostpunk'}, {zh:'末日余生', en:'The Last of Us'},
+        {zh:'辐射岛', en:'Radiation Island'}
+      ],
+      '沙盒': [
+        {zh:'我的世界', en:'Minecraft'}, {zh:'泰拉瑞亚', en:'Terraria'}, {zh:'Garry\'s Mod', en:'Garry\'s Mod'}, {zh:'Roblox', en:'Roblox'},
+        {zh:'围攻', en:'Besiege'}, {zh:'坎巴拉太空计划', en:'Kerbal Space Program'}, {zh:'星际边境', en:'Starbound'}, {zh:'星球探险家', en:'Planet Explorers'},
+        {zh:'沙盒进化', en:'Sandbox Evolution'}, {zh:'艾兰岛', en:'Island'}, {zh:'乐高世界', en:'LEGO Worlds'}, {zh:'宇宙沙盒', en:'Universe Sandbox'},
+        {zh:'模拟人生', en:'The Sims'}, {zh:'城市天际线', en:'Cities Skylines'}, {zh:'过山车之星', en:'Planet Coaster'}, {zh:'动物园之星', en:'Planet Zoo'},
+        {zh:'侏罗纪世界', en:'Jurassic World Evolution'}, {zh:'海岛大亨', en:'Tropico'}, {zh:'纪元', en:'Anno'}, {zh:'放逐之城', en:'Banished'},
+        {zh:'中世纪王朝', en:'Medieval Dynasty'}, {zh:'英灵神殿', en:'Valheim'}, {zh:'方舟生存进化', en:'Ark Survival Evolved'}, {zh:'创造营', en:'Craftopia'},
+        {zh:'沙盒创造', en:'Sandbox Creation'}
+      ],
+      '卡牌': [
+        {zh:'炉石传说', en:'Hearthstone'}, {zh:'昆特牌', en:'Gwent'}, {zh:'万智牌', en:'Magic: The Gathering'}, {zh:'游戏王', en:'Yu-Gi-Oh!'},
+        {zh:'影之诗', en:'Shadowverse'}, {zh:'杀戮尖塔', en:'Slay the Spire'}, {zh:'怪物火车', en:'Monster Train'}, {zh:'欺诈之地', en:'Griftlands'},
+        {zh:'月圆之夜', en:'Night of the Full Moon'}, {zh:'三国杀', en:'Sanguosha'}, {zh:'英雄战歌', en:'Heroes Battle Song'}, {zh:'秘境对决', en:'Mystery Duel'},
+        {zh:'五行师', en:'Five Elements'}, {zh:'符石守护者', en:'Rune Stone Keeper'}, {zh:'卡片怪兽', en:'Card Monster'}, {zh:'小丑牌', en:'Joker Card'},
+        {zh:'邪恶冥刻', en:'Inscryption'}, {zh:'塔防', en:'Tower Defense'}, {zh:'军团', en:'Legion'}, {zh:'王牌与冒险', en:'Aces and Adventures'},
+        {zh:'命运之手', en:'Hand of Fate'}, {zh:'王权', en:'Reigns'}, {zh:'王权陨落', en:'Reigns Fall'}, {zh:'超时空方舟', en:'Chrono Ark'},
+        {zh:'欺诈领主', en:'Deceit Lord'}
+      ]
     };
 
-    // ---- 生成各种链接 ----
-    function generateSteamLink(gameName) { return `https://store.steampowered.com/search/?term=${encodeURIComponent(gameName)}`; }
-    function generateItchLink(gameName) { return `https://itch.io/search?q=${encodeURIComponent(gameName)}`; }
-    function generateGogLink(gameName) { return `https://www.gog.com/en/games?search=${encodeURIComponent(gameName)}`; }
-    function generateEpicLink(gameName) { return `https://store.epicgames.com/en-US/browse?q=${encodeURIComponent(gameName)}`; }
-    function generateOfficialLink(gameName) { return `https://www.google.com/search?q=${encodeURIComponent(gameName)}+官网`; }
-
+    // ---- 生成游戏数据 (4500个) ----
     function generateGames(count = 4500) {
       const games = [];
       const catKeys = Object.keys(gameNamePool);
@@ -196,20 +290,20 @@
       catKeys.forEach(cat => {
         const pool = gameNamePool[cat];
         for (let i = 0; i < basePerCat; i++) {
-          const nameIndex = i % pool.length;
-          const gameName = pool[nameIndex]; // 直接使用名称，不加序号
+          const entry = pool[i % pool.length];
           const hasFree = Math.random() > 0.25;
           const hasPremium = Math.random() > 0.35;
           games.push({
-            name: gameName,
+            nameZh: entry.zh,
+            nameEn: entry.en,
             category: cat,
             hasFree: hasFree,
             hasPremium: hasPremium,
-            freeLink: hasFree ? generateItchLink(gameName) : '#',
-            premiumLink: hasPremium ? generateSteamLink(gameName) : '#',
-            gogLink: generateGogLink(gameName),
-            epicLink: generateEpicLink(gameName),
-            officialLink: generateOfficialLink(gameName)
+            freeLink: hasFree ? generateItchLink(entry.zh) : '#',
+            premiumLink: hasPremium ? generateSteamLink(entry.zh) : '#',
+            gogLink: generateGogLink(entry.zh),
+            epicLink: generateEpicLink(entry.zh),
+            officialLink: generateOfficialLink(entry.zh)
           });
         }
       });
@@ -217,19 +311,20 @@
       while (games.length < count) {
         const cat = catKeys[Math.floor(Math.random() * catKeys.length)];
         const pool = gameNamePool[cat];
-        const gameName = pool[Math.floor(Math.random() * pool.length)]; // 不加序号
+        const entry = pool[Math.floor(Math.random() * pool.length)];
         const hasFree = Math.random() > 0.25;
         const hasPremium = Math.random() > 0.35;
         games.push({
-          name: gameName,
+          nameZh: entry.zh,
+          nameEn: entry.en,
           category: cat,
           hasFree: hasFree,
           hasPremium: hasPremium,
-          freeLink: hasFree ? generateItchLink(gameName) : '#',
-          premiumLink: hasPremium ? generateSteamLink(gameName) : '#',
-          gogLink: generateGogLink(gameName),
-          epicLink: generateEpicLink(gameName),
-          officialLink: generateOfficialLink(gameName)
+          freeLink: hasFree ? generateItchLink(entry.zh) : '#',
+          premiumLink: hasPremium ? generateSteamLink(entry.zh) : '#',
+          gogLink: generateGogLink(entry.zh),
+          epicLink: generateEpicLink(entry.zh),
+          officialLink: generateOfficialLink(entry.zh)
         });
       }
       // 打乱
@@ -240,6 +335,13 @@
       return games;
     }
 
+    // ---- 链接生成函数 ----
+    function generateSteamLink(name) { return `https://store.steampowered.com/search/?term=${encodeURIComponent(name)}`; }
+    function generateItchLink(name) { return `https://itch.io/search?q=${encodeURIComponent(name)}`; }
+    function generateGogLink(name) { return `https://www.gog.com/en/games?search=${encodeURIComponent(name)}`; }
+    function generateEpicLink(name) { return `https://store.epicgames.com/en-US/browse?q=${encodeURIComponent(name)}`; }
+    function generateOfficialLink(name) { return `https://www.google.com/search?q=${encodeURIComponent(name)}+官网`; }
+
     const allGames = generateGames(4500);
     document.getElementById('gameCount').innerText = allGames.length;
 
@@ -248,7 +350,7 @@
       return map[cat] || 'fa-gamepad';
     }
 
-    // ---- 渲染 ----
+    // ---- 渲染 (根据当前语言显示游戏名) ----
     function renderGames(filterCategory = 'all') {
       const grid = document.getElementById('gameGrid');
       const filtered = filterCategory === 'all' ? allGames : allGames.filter(g => g.category === filterCategory);
@@ -256,14 +358,17 @@
         grid.innerHTML = `<div class="no-games"><i class="fas fa-robot" style="font-size:3rem;opacity:0.3;"></i><p style="margin-top:1rem;">没有找到该分类的游戏</p></div>`;
         return;
       }
+      // 根据当前语言选择显示名称
+      const useZh = currentLang === 'zh';
       let html = '';
       filtered.forEach((game) => {
         const iconClass = getCategoryIcon(game.category);
+        const displayName = useZh ? game.nameZh : game.nameEn;
         html += `
           <div class="game-card" data-category="${game.category}">
             <div class="category-badge">${game.category}</div>
             <div class="game-icon"><i class="fas ${iconClass}"></i><span class="game-tag"><i class="fas fa-cpu"></i> 科技</span></div>
-            <div class="game-name">${game.name}</div>
+            <div class="game-name">${displayName}</div>
             <div class="game-meta">
               <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
                 ${game.hasFree ? '<span style="color:#2ecc71;"><i class="fas fa-circle"></i> 免费</span>' : ''}
@@ -292,18 +397,19 @@
       });
     });
 
-    // ---- 搜索 ----
+    // ---- 搜索 (匹配中文和英文) ----
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
     function performSearch() {
       const query = searchInput.value.trim();
       if (!query) return;
-      const matched = allGames.find(g => g.name.includes(query));
+      // 同时匹配 nameZh 和 nameEn
+      const matched = allGames.find(g => g.nameZh.includes(query) || g.nameEn.toLowerCase().includes(query.toLowerCase()));
       if (matched) {
         const cards = document.querySelectorAll('.game-card');
         for (let card of cards) {
           const nameEl = card.querySelector('.game-name');
-          if (nameEl && nameEl.textContent.includes(query)) {
+          if (nameEl && (nameEl.textContent.includes(query) || nameEl.textContent.toLowerCase().includes(query.toLowerCase()))) {
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
             card.style.borderColor = '#4fc3ff';
             card.style.boxShadow = '0 0 30px rgba(0,180,255,0.6)';
@@ -311,13 +417,14 @@
             return;
           }
         }
+        // 若未找到，切换到全部重新找
         const allTab = document.querySelector('.filter-tab[data-category="all"]');
         if (allTab) {
           allTab.click();
           setTimeout(() => {
             document.querySelectorAll('.game-card').forEach(card => {
               const nameEl = card.querySelector('.game-name');
-              if (nameEl && nameEl.textContent.includes(query)) {
+              if (nameEl && (nameEl.textContent.includes(query) || nameEl.textContent.toLowerCase().includes(query.toLowerCase()))) {
                 card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 card.style.borderColor = '#4fc3ff';
                 card.style.boxShadow = '0 0 30px rgba(0,180,255,0.6)';
@@ -333,6 +440,9 @@
     searchBtn.addEventListener('click', performSearch);
     searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') performSearch(); });
 
+    // ---- 初始化 ----
+    // 设置初始语言为zh，界面文字已更新
+    updateLanguage('zh');
     renderGames('all');
   })();
 </script>
